@@ -1,24 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PleyHomeSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UlJ-Va-oeL">
+                                <rect key="frame" x="20" y="10" width="560" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Svo-K2-ND2">
+                                <rect key="frame" x="0.0" y="61" width="600" height="539"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="address" rowHeight="100" id="6QU-AR-zGH" customClass="AddressTableViewCell" customModule="PleyHomeSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6QU-AR-zGH" id="28J-Wm-LSH">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeo-Dt-mv3">
+                                                    <rect key="frame" x="16" y="0.0" width="41.5" height="100"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eeo-Dt-mv3" secondAttribute="trailing" constant="20" symbolic="YES" id="4b3-mK-L3I"/>
+                                                <constraint firstItem="eeo-Dt-mv3" firstAttribute="leading" secondItem="28J-Wm-LSH" secondAttribute="leadingMargin" id="bG9-6T-nEv"/>
+                                                <constraint firstItem="eeo-Dt-mv3" firstAttribute="top" secondItem="28J-Wm-LSH" secondAttribute="top" id="vyp-GW-Bd8"/>
+                                                <constraint firstAttribute="bottom" secondItem="eeo-Dt-mv3" secondAttribute="bottom" id="xHQ-k2-Kkr"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="eeo-Dt-mv3" id="w9z-Nj-qrG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UlJ-Va-oeL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9iE-ZJ-eIn"/>
+                            <constraint firstItem="UlJ-Va-oeL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="KrJ-Lc-Yea"/>
+                            <constraint firstAttribute="trailing" secondItem="Svo-K2-ND2" secondAttribute="trailing" id="Sxq-am-qqv"/>
+                            <constraint firstItem="Svo-K2-ND2" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Y9Y-rN-f0f"/>
+                            <constraint firstItem="Svo-K2-ND2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="l1O-d5-9bH"/>
+                            <constraint firstItem="Svo-K2-ND2" firstAttribute="top" secondItem="UlJ-Va-oeL" secondAttribute="bottom" id="swS-SL-90J"/>
+                            <constraint firstItem="UlJ-Va-oeL" firstAttribute="centerX" secondItem="Svo-K2-ND2" secondAttribute="centerX" id="zMt-zS-rcT"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchBar" destination="UlJ-Va-oeL" id="Iq7-ez-1cH"/>
+                        <outlet property="tableView" destination="Svo-K2-ND2" id="wTp-h5-hBS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
