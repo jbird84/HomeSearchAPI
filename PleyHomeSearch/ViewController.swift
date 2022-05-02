@@ -17,7 +17,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var searchString = ""
     
     
-    
     // MARK: - ViewController LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +24,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         initSearchController()
     }
-    
     
     
     // MARK: - SearchBar Methods
@@ -44,7 +42,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         tableView.reloadData()
     }
-    
     
     
     // MARK: - TableView Methods
@@ -70,7 +67,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //Create URL:
         guard let url = URL(string: "https://realty-in-us.p.rapidapi.com/locations/auto-complete?input=\(escapedString ?? "")") else {
-            fatalError("Invalid url string.")
+            print("Invalid url string.")
+            return
         }
         
         //create request to add headers:
@@ -84,7 +82,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //Create URL session data task
         let task = session.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
-                fatalError("Unable to unwrap date from api call.")
+                print(error ?? "Unable to unwrap date from api call.")
+                return
             }
             
             do {
@@ -98,7 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
             } catch {
-                fatalError(error.localizedDescription)
+                print(error)
             }
         }
         task.resume()

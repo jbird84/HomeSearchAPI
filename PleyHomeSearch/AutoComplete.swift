@@ -26,7 +26,7 @@ import Foundation
 
 import Foundation
 
-// MARK: - Welcome
+// MARK: - AddressResult
 struct AddressResult: Codable {
     let meta: Meta
     let autocomplete: [Autocomplete]
@@ -86,4 +86,3 @@ struct County: Codable {
 struct Meta: Codable {
     let build: String
 }
-
