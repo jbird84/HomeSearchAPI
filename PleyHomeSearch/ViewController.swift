@@ -9,12 +9,45 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
+    // MARK: - Variable Declarations
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var tempAddressData: [String] = []
     var searchString = ""
     
+    
+    
+    // MARK: - ViewController LifeCycle Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
+        initSearchController()
+    }
+    
+    
+    
+    // MARK: - SearchBar Methods
+    func initSearchController() {
+        searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchText == "" {
+            tempAddressData = []
+        } else {
+            searchString = searchText
+            fetchAddresses()
+            tempAddressData = []
+        }
+        tableView.reloadData()
+    }
+    
+    
+    
+    // MARK: - TableView Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tempAddressData.count
     }
@@ -27,49 +60,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.addressLabel.text = tempAddressData[indexPath.row]
         
         return cell
+    }
+    
+    // MARK: - API Method
+    // TODO: - This will be moved to "AddressFetcher" when it is compleated.
+    func fetchAddresses() {
         
-    }
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        searchBar.delegate = self
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchText == "" {
-            tempAddressData = []
-            // TODO: show a screen that say to search for house.
-        } else {
-            searchString = searchText
-            fetchAddresses()
-            tempAddressData = []
-        }
-        tableView.reloadData()
-    }
-    
-        func fetchAddresses() {
+        let escapedString = searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         //Create URL:
-        
-            let escapedString = searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-            
-            //let u = searchString.addingPercentEncoding(withAllowedCharacters: NSMutableCharacterSet.alphanumeric())
-        
-            
-            
-            guard let url = URL(string: "https://realty-in-us.p.rapidapi.com/locations/auto-complete?input=\(escapedString ?? "")") else {
+        guard let url = URL(string: "https://realty-in-us.p.rapidapi.com/locations/auto-complete?input=\(escapedString ?? "")") else {
             fatalError("Invalid url string.")
         }
-
+        
         //create request to add headers:
         var request = URLRequest.init(url: url)
         request.httpMethod = "GET"
         let config = URLSessionConfiguration.default
-            config.httpAdditionalHeaders = ["Content-Type" : "application/json", "X-RapidAPI-Host" : "realty-in-us.p.rapidapi.com", "X-RapidAPI-Key":"5f1255b221msh51110a82d9d5917p1c66ecjsne29d780398ba"]
+        config.httpAdditionalHeaders = ["Content-Type" : "application/json", "X-RapidAPI-Host" : "realty-in-us.p.rapidapi.com", "X-RapidAPI-Key":"5f1255b221msh51110a82d9d5917p1c66ecjsne29d780398ba"]
         let session = URLSession.init(configuration: config)
         
         
@@ -95,7 +103,5 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         task.resume()
     }
-
-    
 }
 
