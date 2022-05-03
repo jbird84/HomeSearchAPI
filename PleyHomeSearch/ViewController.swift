@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tempAddressData = []
         } else {
             searchString = searchText
-            fetchAddresses()
+            fetchMovies()
             tempAddressData = []
         }
         tableView.reloadData()
@@ -55,52 +55,88 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         cell.addressLabel.text = tempAddressData[indexPath.row]
-        
+   
         return cell
     }
     
-    // MARK: - API Method
-    // TODO: - This will be moved to "AddressFetcher" when it is compleated.
-    func fetchAddresses() {
+    func fetchMovies() {
         
         let escapedString = searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
-        //Create URL:
-        guard let url = URL(string: "https://realty-in-us.p.rapidapi.com/locations/auto-complete?input=\(escapedString ?? "")") else {
-            print("Invalid url string.")
+        guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=ded8832144473857c6386251e89f89af&language=en-US&query=\(escapedString ?? ""))&page=1&include_adult=true") else {
+            print("Invalid url string")
             return
         }
         
-        //create request to add headers:
-        var request = URLRequest.init(url: url)
-        request.httpMethod = "GET"
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Content-Type" : "application/json", "X-RapidAPI-Host" : "realty-in-us.p.rapidapi.com", "X-RapidAPI-Key":"5f1255b221msh51110a82d9d5917p1c66ecjsne29d780398ba"]
-        let session = URLSession.init(configuration: config)
+                //Create URL session data task
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+                    guard let data = data, error == nil else {
+                        print(error ?? "Unable to unwrap date from api call.")
+                        return
+                    }
         
-        
-        //Create URL session data task
-        let task = session.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                print(error ?? "Unable to unwrap date from api call.")
-                return
-            }
-            
-            do {
-                //Parse the JSON data
-                let autoCompleteResult = try JSONDecoder().decode(AddressResult.self, from: data)
-                //print("Successfully received the data \(autoCompleteResult.autocomplete)")
-                DispatchQueue.main.async {
-                    for address in autoCompleteResult.autocomplete {
-                        self.tempAddressData.append("\(address.line ?? "") \(address.city), \(address.stateCode) \(address.postalCode ?? "")")
-                        self.tableView.reloadData()
+                    do {
+                        //Parse the JSON data
+                        let autoCompleteResult = try JSONDecoder().decode(MovieResult.self, from: data)
+                        //print("Successfully received the data \(autoCompleteResult.autocomplete)")
+                        DispatchQueue.main.async {
+                            for movie in autoCompleteResult.results {
+                                self.tempAddressData.append(movie.originalTitle)
+                                self.tableView.reloadData()
+                            }
+                        }
+                    } catch {
+                        print(error)
                     }
                 }
-            } catch {
-                print(error)
-            }
-        }
-        task.resume()
+                task.resume()
     }
 }
+
+
+
+//    // MARK: - API Method
+//    // TODO: - This will be moved to "AddressFetcher" when it is compleated.
+//    func fetchAddresses() {
+//
+//        let escapedString = searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+//
+//        //Create URL:
+//        guard let url = URL(string: "https://realty-in-us.p.rapidapi.com/locations/auto-complete?input=\(escapedString ?? "")") else {
+//            print("Invalid url string.")
+//            return
+//        }
+//
+//        //create request to add headers:
+//        var request = URLRequest.init(url: url)
+//        request.httpMethod = "GET"
+//        let config = URLSessionConfiguration.default
+//        config.httpAdditionalHeaders = ["Content-Type" : "application/json", "X-RapidAPI-Host" : "realty-in-us.p.rapidapi.com", "X-RapidAPI-Key":"5f1255b221msh51110a82d9d5917p1c66ecjsne29d780398ba"]
+//        let session = URLSession.init(configuration: config)
+//
+//
+//        //Create URL session data task
+//        let task = session.dataTask(with: url) { data, _, error in
+//            guard let data = data, error == nil else {
+//                print(error ?? "Unable to unwrap date from api call.")
+//                return
+//            }
+//
+//            do {
+//                //Parse the JSON data
+//                let autoCompleteResult = try JSONDecoder().decode(AddressResult.self, from: data)
+//                //print("Successfully received the data \(autoCompleteResult.autocomplete)")
+//                DispatchQueue.main.async {
+//                    for address in autoCompleteResult.autocomplete {
+//                        self.tempAddressData.append("\(address.line ?? "") \(address.city), \(address.stateCode) \(address.postalCode ?? "")")
+//                        self.tableView.reloadData()
+//                    }
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        }
+//        task.resume()
+//    }
+
 

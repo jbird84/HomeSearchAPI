@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA4994212820AD140061690A /* MovieResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4994202820AD140061690A /* MovieResult.swift */; };
 		DACA5C9F281CB07600BCDC0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA5C9E281CB07600BCDC0A /* AppDelegate.swift */; };
 		DACA5CA1281CB07600BCDC0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA5CA0281CB07600BCDC0A /* SceneDelegate.swift */; };
 		DACA5CA3281CB07600BCDC0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACA5CA2281CB07600BCDC0A /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA4994202820AD140061690A /* MovieResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResult.swift; sourceTree = "<group>"; };
 		DACA5C9B281CB07600BCDC0A /* PleyHomeSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PleyHomeSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DACA5C9E281CB07600BCDC0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DACA5CA0281CB07600BCDC0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 		DACA5C92281CB07600BCDC0A = {
 			isa = PBXGroup;
 			children = (
+				DA4994202820AD140061690A /* MovieResult.swift */,
 				DACA5C9D281CB07600BCDC0A /* PleyHomeSearch */,
 				DACA5C9C281CB07600BCDC0A /* Products */,
 			);
@@ -149,6 +152,7 @@
 			files = (
 				DACA5CB7281CF04D00BCDC0A /* AddressFetcher.swift in Sources */,
 				DACA5CB5281CECEF00BCDC0A /* AutoComplete.swift in Sources */,
+				DA4994212820AD140061690A /* MovieResult.swift in Sources */,
 				DACA5CA3281CB07600BCDC0A /* ViewController.swift in Sources */,
 				DACA5C9F281CB07600BCDC0A /* AppDelegate.swift in Sources */,
 				DACA5CB3281CB1A100BCDC0A /* AddressTableViewCell.swift in Sources */,

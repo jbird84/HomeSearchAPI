@@ -10,6 +10,9 @@ import UIKit
 class AddressTableViewCell: UITableViewCell {
     
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var movieImage: UIImageView!
+    @IBOutlet weak var descLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
